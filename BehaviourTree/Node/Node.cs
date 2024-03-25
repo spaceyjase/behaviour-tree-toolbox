@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class Node
 {
-    private static uint LastId;
+    internal static uint LastId;
 
     private readonly Dictionary<string, object> data = new(); // TODO: avoid boxing, consider repository
 
@@ -74,14 +74,8 @@ public abstract class Node
         child.Root = null;
     }
 
-    public object GetData(string key)
-    {
-        if (this.data.TryGetValue(key, out object value))
-        {
-            return value;
-        }
-        return this.Parent?.GetData(key);
-    }
+    public object GetData(string key) =>
+        this.data.TryGetValue(key, out object value) ? value : this.Parent?.GetData(key);
 
     public void SetData(string key, object value)
     {
