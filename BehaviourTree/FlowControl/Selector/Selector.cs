@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
+﻿namespace BehaviourTree.FlowControl.Selector;
+
+using System.Collections.Generic;
 using BehaviourTree.Node;
 
-namespace BehaviourTree.Selector;
-
-public class Selector : Node.Node
+public class Selector : Node
 {
     public Selector() { }
 
-    public Selector(IEnumerable<Node.Node> children)
+    public Selector(IEnumerable<Node> children)
         : base(children) { }
 
     public override NodeState Evaluate()
     {
-        foreach (Node.Node node in this.Children)
+        foreach (Node node in this.Children)
         {
             switch (node.Evaluate())
             {

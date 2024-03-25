@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace></RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="BehaviourTree\FlowControl\" />
+  </ItemGroup>
 </Project>

@@ -1,20 +1,19 @@
-﻿using BehaviourTree.Node;
-
-namespace BehaviourTree.Sequence;
+﻿namespace BehaviourTree.FlowControl.Sequence;
 
 using System.Collections.Generic;
+using BehaviourTree.Node;
 
-public class Sequence : Node.Node
+public class Sequence : Node
 {
     public Sequence() { }
 
-    public Sequence(IEnumerable<Node.Node> children)
+    public Sequence(IEnumerable<Node> children)
         : base(children) { }
 
     public override NodeState Evaluate()
     {
         bool anyChildRunning = false;
-        foreach (Node.Node child in this.Children)
+        foreach (Node child in this.Children)
         {
             switch (child.Evaluate())
             {

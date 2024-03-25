@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://dd7wisoq1l75x"]
+[gd_scene load_steps=2 format=3 uid="uid://dd7wisoq1l75x"]
+
+[ext_resource type="Script" path="res://BehaviourTree/BTree/BTree.cs" id="1_ujyob"]
 
 [node name="BehaviourTree" type="Node"]
+script = ExtResource("1_ujyob")
