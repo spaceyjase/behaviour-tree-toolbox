@@ -6,6 +6,8 @@ public abstract class Node
 {
     private static uint LastId;
 
+    private readonly Dictionary<string, object> data = new(); // TODO: avoid boxing, consider repository
+
     private readonly List<Node> children;
     private readonly uint id;
     protected NodeState state;
@@ -70,5 +72,28 @@ public abstract class Node
 
         child.Parent = null;
         child.Root = null;
+    }
+
+    public object GetData(string key)
+    {
+        if (this.data.TryGetValue(key, out object value))
+        {
+            return value;
+        }
+        return this.Parent?.GetData(key);
+    }
+
+    public void SetData(string key, object value)
+    {
+        this.data[key] = value;
+    }
+
+    public bool RemoveData(string key)
+    {
+        if (this.data.ContainsKey(key))
+        {
+            return this.data.Remove(key);
+        }
+        return this.Parent is not null && this.Parent.RemoveData(key);
     }
 }
