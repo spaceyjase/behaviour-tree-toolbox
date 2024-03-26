@@ -1,7 +1,7 @@
 ﻿namespace BehaviourTree.FlowControl.Selector;
 
 using System.Collections.Generic;
-using BehaviourTree.Node;
+using Node;
 
 public class Selector : Node
 {

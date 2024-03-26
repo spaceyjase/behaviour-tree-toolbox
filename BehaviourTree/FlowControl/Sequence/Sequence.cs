@@ -1,7 +1,7 @@
 ﻿namespace BehaviourTree.FlowControl.Sequence;
 
 using System.Collections.Generic;
-using BehaviourTree.Node;
+using Node;
 
 public class Sequence : Node
 {

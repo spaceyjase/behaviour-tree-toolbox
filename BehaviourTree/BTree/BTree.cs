@@ -2,7 +2,7 @@ namespace BehaviourTree.BTree;
 
 public abstract partial class BTree : Godot.Node
 {
-    private Node.Node root;
+    private Node.Node? root;
 
     public override void _Ready()
     {
@@ -15,6 +15,6 @@ public abstract partial class BTree : Godot.Node
         this.root?.Evaluate();
     }
 
-    public Node.Node Root => this.root;
-    protected abstract Node.Node SetupTree();
+    public Node.Node? Root => this.root;
+    protected abstract Node.Node? SetupTree();
 }
