@@ -7,9 +7,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="BehaviourTree\FlowControl\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="BehaviourTree.Tests\**" />
   </ItemGroup>
   <ItemGroup>

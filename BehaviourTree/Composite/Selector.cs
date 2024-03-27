@@ -3,6 +3,9 @@
 using System.Collections.Generic;
 using Node;
 
+/// <summary>
+/// The selector node will return success as soon as one of its children returns success (i.e. "OR").
+/// </summary>
 public class Selector : Node
 {
     public Selector() { }

@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Node;
 
+/// <summary>
+/// The parallel node can run its child nodes "at the same time". Not implemented here as it doesn't have an interruption condition.
+/// The policy is:
+///  - if all children fail, the parallel node fails.
+///  - if any child is running, the parallel node is running.
+///  - else the parallel node succeeds.
+/// </summary>
 public class Parallel : Node
 {
     public Parallel() { }
