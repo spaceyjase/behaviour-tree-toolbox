@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public abstract class Node
 {
-    internal static uint LastId;
+    public static uint LastId;
 
-    private readonly Dictionary<string, object?> data = new(); // TODO: avoid boxing, consider repository
+    private readonly NodeData nodeData = new();
 
     private readonly List<Node> children;
     private readonly uint id;
@@ -74,19 +74,27 @@ public abstract class Node
         child.Root = null;
     }
 
-    public object? GetData(string key) =>
-        this.data.TryGetValue(key, out object? value) ? value : this.Parent?.GetData(key);
-
-    public void SetData(string key, object? value)
+    public object? GetData(string key)
     {
-        this.data[key] = value;
+        if (this.nodeData.TryGetValue(key, out object? value))
+        {
+            return value;
+        }
+        if (this.Parent is not null)
+        {
+            value = this.Parent.GetData(key);
+        }
+
+        return value;
     }
+
+    public void SetData(string key, object value) => this.nodeData.SetValue(key, value);
 
     public bool RemoveData(string key)
     {
-        if (this.data.ContainsKey(key))
+        if (this.nodeData.RemoveValue(key))
         {
-            return this.data.Remove(key);
+            return true;
         }
         return this.Parent is not null && this.Parent.RemoveData(key);
     }

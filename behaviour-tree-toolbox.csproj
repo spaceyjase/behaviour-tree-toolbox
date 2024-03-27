@@ -9,4 +9,10 @@
   <ItemGroup>
     <Folder Include="BehaviourTree\FlowControl\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="BehaviourTree.Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="BehaviourTree.Tests\**" />
+  </ItemGroup>
 </Project>
