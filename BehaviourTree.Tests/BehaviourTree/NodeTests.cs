@@ -17,7 +17,7 @@ public class NodeTests
 
         }
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(double delta)
         {
             throw new NotImplementedException();
         }
@@ -158,7 +158,7 @@ public class NodeTests
     public void Evaluate_ThrowsNotImplementedException()
     {
         TestNode node = new();
-        Action act = () => node.Evaluate();
+        Action act = () => node.Evaluate(0f);
         act.Should().Throw<NotImplementedException>();
     }
 }

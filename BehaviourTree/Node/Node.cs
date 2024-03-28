@@ -47,7 +47,7 @@ public abstract class Node
     public IEnumerable<Node> Children => this.children;
     public bool HasChildren => this.children.Count > 0;
 
-    public abstract NodeState Evaluate();
+    public abstract NodeState Evaluate(double delta);
 
     public void SetChildren(IEnumerable<Node> children, bool setRoot = false)
     {

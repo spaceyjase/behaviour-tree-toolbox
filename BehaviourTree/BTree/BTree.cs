@@ -10,9 +10,10 @@ public abstract partial class BTree : Godot.Node
         this.root = this.SetupTree();
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        this.root?.Evaluate();
+        base._PhysicsProcess(delta);
+        this.root?.Evaluate(delta);
     }
 
     public Node.Node? Root => this.root;

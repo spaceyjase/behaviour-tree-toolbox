@@ -13,12 +13,12 @@ public class Sequence : Node
     public Sequence(IEnumerable<Node> children)
         : base(children) { }
 
-    public override NodeState Evaluate()
+    public override NodeState Evaluate(double delta)
     {
         bool anyChildRunning = false;
         foreach (Node child in this.Children)
         {
-            switch (child.Evaluate())
+            switch (child.Evaluate(delta))
             {
                 case NodeState.Failure:
                     this.state = NodeState.Failure;

@@ -14,11 +14,11 @@ public class Inverter : Node
     public Inverter(IEnumerable<Node> children)
         : base(children) { }
 
-    public override NodeState Evaluate()
+    public override NodeState Evaluate(double delta)
     {
         if (!this.HasChildren)
             return NodeState.Failure;
-        switch (this.Children.First().Evaluate())
+        switch (this.Children.First().Evaluate(delta))
         {
             case NodeState.Failure:
                 this.state = NodeState.Success;

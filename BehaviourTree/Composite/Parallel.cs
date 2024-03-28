@@ -18,13 +18,13 @@ public class Parallel : Node
     public Parallel(IEnumerable<Node> children)
         : base(children) { }
 
-    public override NodeState Evaluate()
+    public override NodeState Evaluate(double delta)
     {
         bool anyChildRunning = false;
         int failedChildren = 0;
         foreach (Node child in this.Children)
         {
-            switch (child.Evaluate())
+            switch (child.Evaluate(delta))
             {
                 case NodeState.Failure:
                     failedChildren++;

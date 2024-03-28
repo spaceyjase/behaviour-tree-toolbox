@@ -13,11 +13,11 @@ public class Selector : Node
     public Selector(IEnumerable<Node> children)
         : base(children) { }
 
-    public override NodeState Evaluate()
+    public override NodeState Evaluate(double delta)
     {
         foreach (Node node in this.Children)
         {
-            switch (node.Evaluate())
+            switch (node.Evaluate(delta))
             {
                 case NodeState.Failure:
                     continue;
