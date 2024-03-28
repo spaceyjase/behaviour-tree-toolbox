@@ -66,6 +66,25 @@ public class NodeTests
     }
 
     [Fact]
+    public void CanSetChildren_Ctor()
+    {
+        TestNode child = new();
+        TestNode node = new([child]);
+        node.HasChildren.Should().BeTrue();
+        child.Parent.Should().Be(node);
+    }
+
+    [Fact]
+    public void ChildCanGetParentData()
+    {
+        TestNode node = new();
+        TestNode child = new();
+        node.SetData("key", "value");
+        node.Attach(child);
+        child.GetData("key").Should().Be("value");
+    }
+
+    [Fact]
     public void CanDetachChild()
     {
         TestNode node = new();

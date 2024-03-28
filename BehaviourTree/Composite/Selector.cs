@@ -22,16 +22,16 @@ public class Selector : Node
                 case NodeState.Failure:
                     continue;
                 case NodeState.Success:
-                    this.state = NodeState.Success;
-                    return this.state;
+                    this.State = NodeState.Success;
+                    return this.State;
                 case NodeState.Running:
-                    this.state = NodeState.Running;
-                    return this.state;
+                    this.State = NodeState.Running;
+                    return this.State;
                 default:
                     continue;
             }
         }
-        this.state = NodeState.Failure;
-        return this.state;
+        this.State = NodeState.Failure;
+        return this.State;
     }
 }

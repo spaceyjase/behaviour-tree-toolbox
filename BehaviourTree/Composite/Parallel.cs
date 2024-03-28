@@ -35,18 +35,18 @@ public class Parallel : Node
                     anyChildRunning = true;
                     continue;
                 default:
-                    this.state = NodeState.Success;
-                    return this.state;
+                    this.State = NodeState.Success;
+                    return this.State;
             }
         }
 
-        this.state =
+        this.State =
             failedChildren == this.Children.Count()
                 ? NodeState.Failure
                 : anyChildRunning
                     ? NodeState.Running
                     : NodeState.Success;
 
-        return this.state;
+        return this.State;
     }
 }

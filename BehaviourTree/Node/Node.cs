@@ -9,13 +9,11 @@ public abstract class Node
     private readonly NodeData nodeData = new();
 
     private readonly List<Node> children;
-    private readonly uint id;
-    protected NodeState state;
     private Node? root;
 
     protected Node()
     {
-        this.id = LastId++;
+        this.Id = LastId++;
         this.Parent = null;
         this.children = new List<Node>();
         this.root = this;
@@ -30,7 +28,7 @@ public abstract class Node
     public Node? Root
     {
         get => this.root;
-        set
+        private set
         {
             this.root = value;
             foreach (Node child in this.children)
@@ -40,18 +38,23 @@ public abstract class Node
         }
     }
 
-    public NodeState State => this.state;
-    public uint Id => this.id;
+    public NodeState State { get; protected set; }
+    public uint Id { get; }
+
     public Node? Parent { get; set; }
 
-    public IEnumerable<Node> Children => this.children;
+    protected IEnumerable<Node> Children => this.children;
     public bool HasChildren => this.children.Count > 0;
 
     public abstract NodeState Evaluate(double delta);
 
     public void SetChildren(IEnumerable<Node> children, bool setRoot = false)
     {
-        this.children.AddRange(children);
+        foreach (Node child in children)
+        {
+            this.Attach(child);
+        }
+
         if (setRoot)
         {
             this.Root = this;

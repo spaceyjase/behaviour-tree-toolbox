@@ -21,19 +21,19 @@ public class Sequence : Node
             switch (child.Evaluate(delta))
             {
                 case NodeState.Failure:
-                    this.state = NodeState.Failure;
-                    return this.state;
+                    this.State = NodeState.Failure;
+                    return this.State;
                 case NodeState.Success:
                     continue;
                 case NodeState.Running:
                     anyChildRunning = true;
                     break;
                 default:
-                    this.state = NodeState.Success;
-                    return this.state;
+                    this.State = NodeState.Success;
+                    return this.State;
             }
         }
-        this.state = anyChildRunning ? NodeState.Running : NodeState.Success;
-        return this.state;
+        this.State = anyChildRunning ? NodeState.Running : NodeState.Success;
+        return this.State;
     }
 }

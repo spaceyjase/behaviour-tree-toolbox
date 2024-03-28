@@ -1,6 +1,6 @@
 namespace BehaviourTree.BTree;
 
-public abstract partial class BTree : Godot.Node
+public abstract partial class BTree : Godot.Node2D
 {
     private Node.Node? root;
 

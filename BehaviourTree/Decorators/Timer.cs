@@ -38,16 +38,16 @@ public class Timer : Node
         if (this.timer <= 0)
         {
             this.timer = this.delay;
-            this.state = this.Children.First().Evaluate(delta);
+            this.State = this.Children.First().Evaluate(delta);
             this.timerElapsed?.Invoke();
-            this.state = NodeState.Success; // TODO: the child's state?
+            this.State = NodeState.Success; // TODO: the child's state?
         }
         else
         {
             this.timer -= (float)delta;
-            this.state = NodeState.Running;
+            this.State = NodeState.Running;
         }
 
-        return this.state;
+        return this.State;
     }
 }

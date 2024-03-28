@@ -21,17 +21,17 @@ public class Inverter : Node
         switch (this.Children.First().Evaluate(delta))
         {
             case NodeState.Failure:
-                this.state = NodeState.Success;
-                return this.state;
+                this.State = NodeState.Success;
+                return this.State;
             case NodeState.Success:
-                this.state = NodeState.Failure;
-                return this.state;
+                this.State = NodeState.Failure;
+                return this.State;
             case NodeState.Running:
-                this.state = NodeState.Running;
-                return this.state;
+                this.State = NodeState.Running;
+                return this.State;
             default:
-                this.state = NodeState.Failure;
-                return this.state;
+                this.State = NodeState.Failure;
+                return this.State;
         }
     }
 }

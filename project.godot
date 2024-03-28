@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="behaviour-tree-toolbox"
+run/main_scene="res://Game/game_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="behaviour-tree-toolbox"
+
+[layer_names]
+
+2d_navigation/layer_1="Ground"
