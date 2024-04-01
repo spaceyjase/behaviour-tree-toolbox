@@ -1,5 +1,6 @@
 ﻿namespace Game.CollectorAI.Behaviour;
 
+using System;
 using BehaviourTree.Node;
 using Godot;
 using Node = BehaviourTree.Node.Node;
@@ -9,14 +10,21 @@ public class Walk : Node
     private readonly Node2D collector;
     private readonly NavigationAgent2D navigationAgent;
     private readonly float speed;
+    private readonly Action<Vector2>? onReachTarget;
 
-    public Walk(Node2D collector, NavigationAgent2D? navigationAgent, float speed)
+    public Walk(
+        Node2D collector,
+        NavigationAgent2D? navigationAgent,
+        float speed,
+        Action<Vector2>? onReachTarget = null
+    )
     {
-        System.ArgumentNullException.ThrowIfNull(navigationAgent);
+        ArgumentNullException.ThrowIfNull(navigationAgent);
 
         this.collector = collector;
         this.navigationAgent = navigationAgent;
         this.speed = speed;
+        this.onReachTarget = onReachTarget;
 
         this.navigationAgent.VelocityComputed += this.OnVelocityComputed;
         this.navigationAgent.NavigationFinished += this.OnNavigationFinished;
@@ -31,6 +39,7 @@ public class Walk : Node
     private void OnVelocityComputed(Vector2 velocity)
     {
         this.collector.GlobalPosition += velocity;
+        this.onReachTarget?.Invoke(velocity);
     }
 
     public override NodeState Evaluate(double delta)

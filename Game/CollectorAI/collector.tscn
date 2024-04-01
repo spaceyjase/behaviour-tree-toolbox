@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://Game/CollectorAI/Collector.cs" id="1_4fhwf"]
 [ext_resource type="Texture2D" uid="uid://ilhdcol32fjp" path="res://Assets/Unit/scifiUnit_30.png" id="1_k7qs1"]
 
-[node name="Collector" type="Node2D" node_paths=PackedStringArray("agent")]
+[node name="Collector" type="Node2D" node_paths=PackedStringArray("agent", "sprite")]
 script = ExtResource("1_4fhwf")
 resourceType = 1
 agent = NodePath("Sprite2D/NavigationAgent2D")
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_k7qs1")
