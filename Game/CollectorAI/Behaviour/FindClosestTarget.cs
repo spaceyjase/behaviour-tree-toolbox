@@ -44,9 +44,9 @@ public class FindClosestTarget : BehaviourTree.Node.Node
                     if (customData != (int)this.collector.Resource)
                         continue;
 
-                    this.Root?.SetData("target", gridPosition);
-                    this.Root?.SetData("target_cell", cellPosition);
-                    this.Root?.SetData("target_is_resource", this.searchingForResource);
+                    this.Root.SetData("target", gridPosition);
+                    this.Root.SetData("target_cell", cellPosition);
+                    this.Root.SetData("target_is_resource", this.searchingForResource);
                     this.State = NodeState.Success;
 
                     return this.State;

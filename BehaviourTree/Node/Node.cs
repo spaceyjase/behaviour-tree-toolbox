@@ -9,7 +9,7 @@ public abstract class Node
     private readonly NodeData nodeData = new();
 
     private readonly List<Node> children;
-    private Node? root;
+    private Node root;
 
     protected Node()
     {
@@ -25,7 +25,7 @@ public abstract class Node
         this.SetChildren(children);
     }
 
-    public Node? Root
+    public Node Root
     {
         get => this.root;
         private set
@@ -41,7 +41,7 @@ public abstract class Node
     public NodeState State { get; protected set; }
     public uint Id { get; }
 
-    public Node? Parent { get; set; }
+    public Node? Parent { get; private set; }
 
     protected IEnumerable<Node> Children => this.children;
     public bool HasChildren => this.children.Count > 0;
@@ -74,7 +74,7 @@ public abstract class Node
         this.children.Remove(child);
 
         child.Parent = null;
-        child.Root = null;
+        child.Root = child;
     }
 
     public object? GetData(string key)
