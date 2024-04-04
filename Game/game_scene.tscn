@@ -14,17 +14,16 @@ layer_0/tile_data = PackedInt32Array(0, 720981, 1, 1, 720981, 1, 2, 655445, 1, 3
 layer_1/name = "Buildings"
 layer_1/tile_data = PackedInt32Array(458753, 65638, 0, 12, 65638, 0, 458767, 65638, 0)
 layer_2/name = "Resources"
-layer_2/tile_data = PackedInt32Array(524292, 123, 0, 393217, 65659, 0, 15, 1245307, 0, 196625, 1245307, 0, 524295, 917589, 0, 458760, 917589, 0, 458759, 983125, 0, 196610, 983125, 0, 131086, 65621, 0, 16, 65621, 0, 524302, 65621, 0, 6, 65621, 0, 7, 983125, 0, 5, 917589, 0, 589828, 85, 0, 393218, 85, 0, 327681, 85, 0, 327691, 85, 0, 327697, 85, 0, 262157, 123, 0)
+layer_2/tile_data = PackedInt32Array(524292, 123, 0, 393217, 65659, 0, 15, 123, 0, 196625, 65659, 0, 524295, 917589, 0, 458760, 917589, 0, 458759, 983125, 0, 196610, 983125, 0, 131086, 65621, 0, 16, 65621, 0, 524302, 65621, 0, 6, 65621, 0, 7, 983125, 0, 5, 917589, 0, 589828, 85, 0, 393218, 85, 0, 327681, 85, 0, 327691, 85, 0, 327697, 85, 0, 262157, 123, 0, 524300, 123, 0)
 
 [node name="Collector" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("2_23ivj")]
 position = Vector2(352, 160)
 tilemap = NodePath("../TileMap")
 
 [node name="Collector2" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("2_23ivj")]
-position = Vector2(544, 160)
+position = Vector2(416, 160)
 resourceType = 2
 tilemap = NodePath("../TileMap")
-speed = 2.0
 
 [node name="Sprite2D" parent="Collector2" index="0"]
 texture = ExtResource("3_jhppi")

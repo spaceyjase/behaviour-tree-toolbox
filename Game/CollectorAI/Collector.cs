@@ -2,6 +2,7 @@ namespace Game;
 
 using System;
 using BehaviourTree.BTree;
+using BehaviourTree.Decorators;
 using BehaviourTree.FlowControl.Selector;
 using BehaviourTree.FlowControl.Sequence;
 using CollectorAI.Behaviour;
@@ -34,13 +35,15 @@ public partial class Collector : BTree
     private ProgressBar? resourceFillBar;
 
     [Export]
+    private float collectRate = 0.5f;
+
+    [Export]
     private float speed = 3f;
 
     [Export]
     private int maxStorage = 20;
 
     public ResourceType Resource => this.resourceType;
-    private const float CollectRate = 1.5f;
 
     protected override Node SetupTree()
     {
@@ -56,7 +59,7 @@ public partial class Collector : BTree
                             [
                                 new InTargetRange(this),
                                 new TargetIsResource(),
-                                new Timer(CollectRate, [
+                                new Timer(this.collectRate, [
                                     new Collect(this.maxStorage, this.tilemap),
                                 ], this.CollectTimerElapsed)
                         ]),
@@ -69,10 +72,11 @@ public partial class Collector : BTree
         );
 
         root.SetData("current_resource_amount", 0);
-        if (this.resourceFillBar is not null)
-        {
-            this.resourceFillBar.MaxValue = this.maxStorage;
-        }
+
+        if (this.resourceFillBar is null) return root;
+
+        this.resourceFillBar.MaxValue = this.maxStorage;
+        this.resourceFillBar.Value = 0;
 
         return root;
     }

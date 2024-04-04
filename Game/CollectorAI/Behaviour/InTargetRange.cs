@@ -6,7 +6,7 @@ using Node = BehaviourTree.Node.Node;
 
 public class InTargetRange(Node2D collector) : Node
 {
-    private const float ReachThreshold = 0.01f;
+    private const float ReachThreshold = 5f;
 
     public override NodeState Evaluate(double delta)
     {

@@ -6,7 +6,7 @@ public class TargetIsResource : Node
 {
     public override NodeState Evaluate(double delta)
     {
-        this.State = this.Root.GetData("targetIsResource") is true
+        this.State = this.Root.GetData("target_is_resource") is true
             ? NodeState.Success
             : NodeState.Failure;
         return this.State;

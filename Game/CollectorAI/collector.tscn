@@ -1,16 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck3321dyjuo6l"]
+[gd_scene load_steps=5 format=3 uid="uid://ck3321dyjuo6l"]
 
 [ext_resource type="Script" path="res://Game/CollectorAI/Collector.cs" id="1_4fhwf"]
 [ext_resource type="Texture2D" uid="uid://ilhdcol32fjp" path="res://Assets/Unit/scifiUnit_30.png" id="1_k7qs1"]
 
-[node name="Collector" type="Node2D" node_paths=PackedStringArray("agent", "sprite")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afcov"]
+bg_color = Color(0.470588, 0.494118, 0.494118, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6rhmc"]
+bg_color = Color(0.12549, 0.705882, 0.372549, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Collector" type="Node2D" node_paths=PackedStringArray("agent", "sprite", "resourceFillBar")]
 script = ExtResource("1_4fhwf")
 resourceType = 1
 agent = NodePath("Sprite2D/NavigationAgent2D")
 sprite = NodePath("Sprite2D")
+resourceFillBar = NodePath("ProgressBar")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_k7qs1")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Sprite2D"]
+path_desired_distance = 5.0
 avoidance_enabled = true
+max_speed = 50.0
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -28.0
+offset_right = 16.0
+offset_bottom = -21.0
+theme_override_styles/background = SubResource("StyleBoxFlat_afcov")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6rhmc")
+step = 1.0
+value = 40.0
+show_percentage = false

@@ -25,12 +25,11 @@ public class Collect(int maxStorage, TileMap? tilemap) : Node
 
         this.Root.SetData("current_resource_amount", newAmount);
 
-        Vector2 resourceCell = (Vector2)(
+        Vector2I cellPosition = (Vector2I)(
             this.Root.GetData("target_cell")
             ?? throw new NullReferenceException("target_cell is null")
         );
 
-        Vector2I cellPosition = this.tilemap.LocalToMap(this.tilemap.ToLocal(resourceCell));
         TileData? tileData = this.tilemap.GetCellTileData(2, cellPosition);
         if (tileData is not null)
         {

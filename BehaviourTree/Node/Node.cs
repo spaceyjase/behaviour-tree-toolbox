@@ -1,11 +1,10 @@
 namespace BehaviourTree.Node;
 
+using System;
 using System.Collections.Generic;
 
 public abstract class Node
 {
-    public static uint LastId;
-
     private readonly NodeData nodeData = new();
 
     private readonly List<Node> children;
@@ -13,7 +12,7 @@ public abstract class Node
 
     protected Node()
     {
-        this.Id = LastId++;
+        this.Id = new Guid().ToString();
         this.Parent = null;
         this.children = new List<Node>();
         this.root = this;
@@ -39,7 +38,7 @@ public abstract class Node
     }
 
     public NodeState State { get; protected set; }
-    public uint Id { get; }
+    public string Id { get; }
 
     public Node? Parent { get; private set; }
 

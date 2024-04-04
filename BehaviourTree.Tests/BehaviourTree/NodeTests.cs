@@ -23,12 +23,6 @@ public class NodeTests
         }
     }
 
-    // Reset the LastId after each test
-    public NodeTests()
-    {
-        Node.LastId = 0;
-    }
-
     [Fact]
     public void CanCreateNode()
     {
@@ -47,13 +41,10 @@ public class NodeTests
     }
 
     [Fact]
-    public void NodeId_IsExpected()
+    public void NodeId_HasId()
     {
         TestNode node = new();
-        node.Id.Should().Be(0);
-
-        TestNode node2 = new();
-        node2.Id.Should().Be(1);
+        node.Id.Should().NotBeEmpty();
     }
 
     [Fact]
