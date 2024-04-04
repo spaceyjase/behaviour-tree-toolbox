@@ -3,6 +3,7 @@
 using System;
 using BehaviourTree.Node;
 using Godot;
+using Constants;
 using Node = BehaviourTree.Node.Node;
 
 public class Walk : Node
@@ -27,34 +28,28 @@ public class Walk : Node
         this.onReachTarget = onReachTarget;
 
         this.navigationAgent.VelocityComputed += this.OnVelocityComputed;
-        this.navigationAgent.NavigationFinished += this.OnNavigationFinished;
-    }
-
-    private void OnNavigationFinished()
-    {
-        this.State = NodeState.Success;
-        this.RemoveData("target");
     }
 
     private void OnVelocityComputed(Vector2 velocity)
     {
-        this.collector.GlobalPosition += velocity;
+        if (!this.navigationAgent.IsNavigationFinished())
+        {
+            this.collector.GlobalPosition += velocity;
+        }
+
         this.onReachTarget?.Invoke(velocity);
     }
 
     public override NodeState Evaluate(double delta)
     {
-        Vector2? targetPosition = (Vector2?)this.GetData("target");
+        Vector2? targetPosition = (Vector2?)this.GetData(Constants.Target);
         if (targetPosition is null)
         {
             this.State = NodeState.Failure;
             return this.State;
         }
 
-        if (this.navigationAgent.TargetPosition != targetPosition.Value)
-        {
-            this.navigationAgent.TargetPosition = targetPosition.Value;
-        }
+        this.navigationAgent.TargetPosition = targetPosition.Value;
 
         Vector2 nextPosition = this.navigationAgent.GetNextPathPosition();
         Vector2 velocity = (nextPosition - this.collector.GlobalPosition).Normalized();
