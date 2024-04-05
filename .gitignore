@@ -49,3 +49,4 @@ exports/
 
 *~
 .godot
+coverage

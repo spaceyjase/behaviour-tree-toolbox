@@ -1,18 +1,20 @@
 namespace BehaviourTree.Tests.BehaviourTree;
 
+using Chickensoft.GoDotTest;
 using FluentAssertions;
 using Node;
+using Node = Godot.Node;
 
-public class NodeDataTests
+public class NodeDataTests(Node testScene) : TestClass(testScene)
 {
-    [Fact]
+    [Test]
     public void CanCreateNodeData()
     {
         NodeData nodeData = new();
         nodeData.Should().NotBeNull();
     }
 
-    [Fact]
+    [Test]
     public void CanSetValue()
     {
         NodeData nodeData = new();
@@ -21,14 +23,14 @@ public class NodeDataTests
         value.Should().Be("value");
     }
 
-    [Fact]
+    [Test]
     public void TryGetData_IsFalse()
     {
         NodeData nodeData = new();
         nodeData.TryGetValue("key", out object? _).Should().BeFalse();
     }
 
-    [Fact]
+    [Test]
     public void CanRemoveData()
     {
         NodeData nodeData = new();

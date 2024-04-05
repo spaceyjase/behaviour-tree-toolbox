@@ -1,5 +1,7 @@
 ﻿namespace BehaviourTree.Tests.Game;
 
+using System.Collections.Generic;
+using Chickensoft.GoDotTest;
 using FlowControl.Selector;
 using FluentAssertions;
 using global::Game.CollectorAI.Behaviour;
@@ -8,16 +10,16 @@ using Node;
 using global::Game.Constants;
 using Node = global::BehaviourTree.Node.Node;
 
-public class CheckHasTargetTests
+public class CheckHasTargetTests(Godot.Node testScene) : TestClass(testScene)
 {
-    [Fact]
+    [Test]
     public void CanCreateNode()
     {
         CheckHasTarget node = new();
         node.Should().NotBeNull();
     }
 
-    [Fact]
+    [Test]
     public void CheckHasTarget_Evaluate_Success()
     {
         Selector root = new();
@@ -26,7 +28,7 @@ public class CheckHasTargetTests
         root.Evaluate(0).Should().Be(NodeState.Success);
     }
 
-    [Fact]
+    [Test]
     public void CheckHasTarget_Evaluate_NoTarget_Failure()
     {
         Selector root = new();

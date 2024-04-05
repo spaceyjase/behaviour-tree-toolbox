@@ -1,20 +1,21 @@
 ﻿namespace BehaviourTree.Tests.BehaviourTree;
 
+using Chickensoft.GoDotTest;
 using FluentAssertions;
 using Decorators;
 using FlowControl.Selector;
 using Node;
 
-public class TimerTests
+public class TimerTests(Godot.Node testScene) : TestClass(testScene)
 {
-    [Fact]
+    [Test]
     public void CanCreateTimer()
     {
         Timer timer = new(100f);
         timer.Should().NotBeNull();
     }
 
-    [Fact]
+    [Test]
     public void CanCreateTimerWithChildren()
     {
         Selector child = new();
@@ -23,7 +24,7 @@ public class TimerTests
         timer.HasChildren.Should().BeTrue();
     }
 
-    [Fact]
+    [Test]
     public void Timer_CallTimerElapsed()
     {
         bool timerElapsed = false;
@@ -36,7 +37,7 @@ public class TimerTests
         timerElapsed.Should().BeTrue();
     }
 
-    [Fact]
+    [Test]
     public void Timer_Evaluate()
     {
         Selector child = new();
@@ -46,7 +47,7 @@ public class TimerTests
         timer.State.Should().Be(NodeState.Running);
     }
 
-    [Fact]
+    [Test]
     public void Timer_Evaluate_Success()
     {
         Selector child = new();
@@ -55,7 +56,7 @@ public class TimerTests
         timer.Evaluate(100f).Should().Be(NodeState.Success);
     }
 
-    [Fact]
+    [Test]
     public void Timer_Evaluate_Failure()
     {
         Timer timer = new(50f);

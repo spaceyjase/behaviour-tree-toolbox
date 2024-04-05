@@ -1,9 +1,12 @@
 ﻿namespace BehaviourTree.Tests.BehaviourTree;
 
+using System;
+using System.Collections.Generic;
+using Chickensoft.GoDotTest;
 using FluentAssertions;
 using Node;
 
-public class NodeTests
+public class NodeTests(Godot.Node testScene) : TestClass(testScene)
 {
     private class TestNode : Node
     {
@@ -23,14 +26,14 @@ public class NodeTests
         }
     }
 
-    [Fact]
+    [Test]
     public void CanCreateNode()
     {
         TestNode node = new();
         node.Should().NotBeNull();
     }
 
-    [Fact]
+    [Test]
     public void CanCreateNodeWithChildren()
     {
         TestNode child = new();
@@ -40,14 +43,14 @@ public class NodeTests
         node.HasChildren.Should().BeTrue();
     }
 
-    [Fact]
+    [Test]
     public void NodeId_HasId()
     {
         TestNode node = new();
         node.Id.Should().NotBeEmpty();
     }
 
-    [Fact]
+    [Test]
     public void CanSetChildren()
     {
         TestNode node = new();
@@ -56,7 +59,7 @@ public class NodeTests
         node.HasChildren.Should().BeTrue();
     }
 
-    [Fact]
+    [Test]
     public void CanSetChildren_Ctor()
     {
         TestNode child = new();
@@ -65,7 +68,7 @@ public class NodeTests
         child.Parent.Should().Be(node);
     }
 
-    [Fact]
+    [Test]
     public void ChildCanGetParentData()
     {
         TestNode node = new();
@@ -75,7 +78,7 @@ public class NodeTests
         child.GetData("key").Should().Be("value");
     }
 
-    [Fact]
+    [Test]
     public void CanDetachChild()
     {
         TestNode node = new();
@@ -85,7 +88,7 @@ public class NodeTests
         node.HasChildren.Should().BeFalse();
     }
 
-    [Fact]
+    [Test]
     public void CanSetRoot()
     {
         TestNode node = new();
@@ -94,7 +97,7 @@ public class NodeTests
         child.Root.Should().Be(node);
     }
 
-    [Fact]
+    [Test]
     public void CanSetChildrenWithRoot()
     {
         TestNode node = new();
@@ -103,7 +106,7 @@ public class NodeTests
         child.Root.Should().Be(node);
     }
 
-    [Fact]
+    [Test]
     public void CanSetParent()
     {
         TestNode node = new();
@@ -112,7 +115,7 @@ public class NodeTests
         child.Parent.Should().Be(node);
     }
 
-    [Fact]
+    [Test]
     public void CanGetData()
     {
         TestNode node = new();
@@ -120,7 +123,7 @@ public class NodeTests
         node.GetData("key").Should().Be("value");
     }
 
-    [Fact]
+    [Test]
     public void CanGetDataFromParent()
     {
         TestNode node = new();
@@ -130,7 +133,7 @@ public class NodeTests
         child.GetData("key").Should().Be("value");
     }
 
-    [Fact]
+    [Test]
     public void CanRemoveData()
     {
         TestNode node = new();
@@ -139,7 +142,7 @@ public class NodeTests
         node.GetData("key").Should().BeNull();
     }
 
-    [Fact]
+    [Test]
     public void CanRemoveDataFromParent()
     {
         TestNode node = new();
@@ -150,21 +153,21 @@ public class NodeTests
         child.GetData("key").Should().BeNull();
     }
 
-    [Fact]
+    [Test]
     public void TryGetData_IsNull()
     {
         TestNode node = new();
         node.GetData("key").Should().BeNull();
     }
 
-    [Fact]
+    [Test]
     public void NodeState_IsDefaultState()
     {
         TestNode node = new();
         node.State.Should().Be(NodeState.Running);
     }
 
-    [Fact]
+    [Test]
     public void Evaluate_ThrowsNotImplementedException()
     {
         TestNode node = new();
