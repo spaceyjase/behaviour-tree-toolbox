@@ -20,6 +20,8 @@ public partial class Collector : BTree
     [Export]
     private ResourceType resourceType;
 
+    [Export] private ResourceMap.ResourceMap resourceMap;
+
     [Export]
     private TileMap? tilemap;
 
@@ -46,7 +48,6 @@ public partial class Collector : BTree
     protected override Node SetupTree()
     {
         Node root = new Selector();
-        // TODO: this could use a fluent API/builder pattern (see Game AI Pro for reference)
         root.SetChildren(
             [
                 new Sequence(
@@ -58,7 +59,7 @@ public partial class Collector : BTree
                                 new InTargetRange(this),
                                 new TargetIsResource(),
                                 new Timer(this.collectRate, [
-                                    new Collect(this.maxStorage, this.tilemap),
+                                    new Collect(this.maxStorage, this.tilemap, this.resourceMap),
                                 ], this.CollectTimerElapsed)
                         ]),
                         new Walk(this, this.agent, this.speed, this.OnReachTarget),

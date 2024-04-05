@@ -34,6 +34,9 @@ public class FindClosestTarget : BehaviourTree.Node.Node
             if (customData != (int)this.collector.Resource)
                 continue;
 
+            int amount = tileData.GetCustomData(Constants.Amount).AsInt32();
+            GD.Print($"Resource found with {amount}");
+
             Vector2 gridPosition = this.tilemap.MapToLocal(cell);
             float distance = this.collector.GlobalPosition.DistanceTo(gridPosition);
             if (!(distance < bestDistance))

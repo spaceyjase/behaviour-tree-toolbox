@@ -4,13 +4,16 @@ using System;
 using BehaviourTree.Node;
 using Godot;
 using Constants;
+using ResourceMap;
 using Node = BehaviourTree.Node.Node;
 
-public class Collect(int maxStorage, TileMap? tilemap) : Node
+public class Collect(int maxStorage, TileMap? tilemap, ResourceMap resourceMap) : Node
 {
     private const int CollectAmount = 1;
 
     private readonly TileMap tilemap = tilemap ?? throw new ArgumentNullException(nameof(tilemap));
+    private readonly ResourceMap resourceMap =
+        resourceMap ?? throw new ArgumentNullException(nameof(resourceMap));
 
     public override NodeState Evaluate(double delta)
     {
@@ -31,23 +34,23 @@ public class Collect(int maxStorage, TileMap? tilemap) : Node
             ?? throw new NullReferenceException($"{Constants.TargetCell} is null")
         );
 
-        TileData? tileData = this.tilemap.GetCellTileData(2, cellPosition);
-        if (tileData is not null)
+        if (this.resourceMap.TryGetAmount(cellPosition, out int amount))
         {
-            int amount = tileData.GetCustomData(Constants.Amount).AsInt32();
             amount -= CollectAmount;
             if (amount < 0)
             {
-                amount = 0;
                 this.tilemap.SetCell(
                     2 /* resources */
                     ,
                     cellPosition
                 );
+                this.resourceMap.Remove(cellPosition);
                 this.ClearTarget();
             }
-
-            tileData.SetCustomData(Constants.Amount, amount);
+            else
+            {
+                this.resourceMap.SetAmount(cellPosition, amount);
+            }
         }
         else
         { // tile may have been consumed by another collector
