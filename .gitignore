@@ -50,3 +50,4 @@ exports/
 *~
 .godot
 coverage
+coverage.cobertura.xml
