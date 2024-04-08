@@ -10,7 +10,7 @@ using Chickensoft.GoDotTest;
 public partial class Main : Node2D
 {
 #if DEBUG
-    public TestEnvironment Environment = default!;
+    private TestEnvironment Environment = default!;
 #endif
 
     public override void _Ready()
@@ -26,8 +26,10 @@ public partial class Main : Node2D
         }
 #endif
         // If we don't need to run tests, we can just switch to the game scene.
-        this.GetTree().ChangeSceneToFile("res://Game/game_scene.tscn");
+        this.CallDeferred(nameof(this.LoadGameScene));
     }
+
+    private void LoadGameScene() => this.GetTree().ChangeSceneToFile("res://Game/game_scene.tscn");
 
 #if DEBUG
     private void RunTests() =>

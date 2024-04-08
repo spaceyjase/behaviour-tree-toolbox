@@ -33,6 +33,9 @@ public partial class Collector : BTree
     private float collectRate = 0.5f;
 
     [Export]
+    private float deliverRate = 0.25f;
+
+    [Export]
     private float speed = 3f;
 
     [Export]
@@ -60,12 +63,21 @@ public partial class Collector : BTree
                         new Sequence(
                             [
                                 new InTargetRange(this),
-                                new TargetIsResource(),
-                                new Timer(this.collectRate, [
-                                    new Collect(this.maxStorage, this.tilemap,
-                                        this.resourceMap ??
-                                        throw new System.ArgumentNullException(nameof(this.resourceMap))),
-                                ], this.CollectTimerElapsed)
+                                new Selector(
+                                [
+                                    new Sequence(
+                                    [
+                                        new TargetIsResource(),
+                                        new Timer(this.collectRate, [
+                                            new Collect(this.maxStorage, this.tilemap,
+                                                this.resourceMap ??
+                                                throw new System.ArgumentNullException(nameof(this.resourceMap))),
+                                        ], this.UpdateResourceBar),
+                                    ]),
+                                    new Timer(this.deliverRate, [
+                                        new Deliver(this.resourceType)
+                                        ], this.UpdateResourceBar),
+                                ]),
                         ]),
                         new Walk(this, this.agent, this.speed, this.OnReachTarget),
                     ])
@@ -85,7 +97,7 @@ public partial class Collector : BTree
         return root;
     }
 
-    private void CollectTimerElapsed()
+    private void UpdateResourceBar()
     {
         int currentAmount = (int)(this.Root?.GetData(Constants.Constants.CurrentResourceAmount) ?? 0);
         if (this.resourceFillBar is not null)
