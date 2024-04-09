@@ -4,6 +4,7 @@ using BehaviourTree.BTree;
 using BehaviourTree.Decorators;
 using BehaviourTree.FlowControl.Selector;
 using BehaviourTree.FlowControl.Sequence;
+using BehaviourTree.Tests.Game;
 using CollectorAI.Behaviour;
 using Enum;
 using Godot;
@@ -74,15 +75,24 @@ public partial class Collector : BTree
                                                 throw new System.ArgumentNullException(nameof(this.resourceMap))),
                                         ], this.UpdateResourceBar),
                                     ]),
-                                    new Timer(this.deliverRate, [
-                                        new Deliver(this.resourceType)
-                                        ], this.UpdateResourceBar),
+                                    new Sequence(
+                                    [
+                                        new CheckHasResource(),
+                                        new Timer(this.deliverRate, [
+                                            new Deliver(this.resourceType)
+                                            ], this.UpdateResourceBar),
+                                    ]),
+                                    new Sequence([
+                                        new CheckIsVisible(this),
+                                        new EnterBuilding(this)
                                 ]),
+                            ]),
                         ]),
                         new Walk(this, this.agent, this.speed, this.OnReachTarget),
                     ])
                 ]),
-                new FindClosestTarget(this, this.tilemap, true)
+                new FindClosestTarget(this, this.tilemap, true),
+                new FindClosestTarget(this, this.tilemap, false)
             ],
             setRoot: true
         );
