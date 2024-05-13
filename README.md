@@ -19,7 +19,7 @@ Take a look in the [BehaviourTree](./BehaviourTree) folder as this contains the 
 
 ## example
 
-The [Game](./Game) folder contains a working example from the book that builds on the behaviour tree toolbox. It's a little RTS-like system that has a couple of AI [Collectors](./Game/CollectorAI/Collector.cs) roam around and find resources, collect them and return to base.
+The [Game](./Game) folder contains a working example from the book that builds on the behaviour tree toolbox. It's a little RTS-like system that has a couple of AI [Collectors](./Game/CollectorAI/Collector.cs) roam around, find resources, collect them and return to base.
 
 ![example](./Game/example.gif)
 
@@ -38,7 +38,7 @@ The example uses:
 
 Albeit not specific to behaviour trees, the example shows how using godot's features, when broken down into discrete pieces of logic, simplifies some of the complexity associated with AI.
 
-Do note that I don't claim this is the correct or best way to implement a game and bugs do exist (for example, finding the nearest target results in an 'as the crow flies' result; the AI should be checking the length of a navigation path result). These are issues with the behaviour tree itself but implementation details present in all games.
+Do note that I don't claim this is the correct or best way to implement a game and bugs do exist (for example, finding the nearest target results in an 'as the crow flies' result; the AI should be checking the length of a navigation path result). These are not issues with the behaviour tree itself but implementation details present in all games.
 
 The game also has some tests although no means extensive. The project uses [GoDotTest](https://github.com/chickensoft-games/GoDotTest).
 
