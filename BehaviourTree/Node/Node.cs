@@ -14,7 +14,7 @@ public abstract class Node
     {
         this.Id = new Guid().ToString();
         this.Parent = null;
-        this.children = [];
+        this.children = new List<Node>();
         this.root = this;
     }
 
@@ -47,9 +47,9 @@ public abstract class Node
 
     public abstract NodeState Evaluate(double delta);
 
-    public void SetChildren(IEnumerable<Node> childrenToAdd, bool setRoot = false)
+    public void SetChildren(IEnumerable<Node> children, bool setRoot = false)
     {
-        foreach (Node child in childrenToAdd)
+        foreach (Node child in children)
         {
             this.Attach(child);
         }
