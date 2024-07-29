@@ -1,4 +1,4 @@
-﻿namespace BehaviourTree.FlowControl.Selector;
+﻿namespace BehaviourTree.Selector;
 
 using System.Collections.Generic;
 using Node;

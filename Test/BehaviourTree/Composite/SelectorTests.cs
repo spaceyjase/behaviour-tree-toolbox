@@ -1,10 +1,10 @@
 ﻿namespace BehaviourTree.Tests.BehaviourTree;
 
 using Chickensoft.GoDotTest;
-using FlowControl.Selector;
 using FluentAssertions;
 using Decorators;
 using Node;
+using Selector;
 
 public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
 {

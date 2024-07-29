@@ -3,8 +3,8 @@
 using Chickensoft.GoDotTest;
 using FluentAssertions;
 using Decorators;
-using FlowControl.Selector;
 using Node;
+using Selector;
 
 public class TimerTests(Godot.Node testScene) : TestClass(testScene)
 {

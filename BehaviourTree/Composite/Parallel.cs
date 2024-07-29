@@ -1,4 +1,4 @@
-﻿namespace BehaviourTree.FlowControl.Parallel;
+﻿namespace BehaviourTree.Parallel;
 
 using System.Collections.Generic;
 using System.Linq;

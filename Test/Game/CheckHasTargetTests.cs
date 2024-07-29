@@ -2,13 +2,13 @@
 
 using System.Collections.Generic;
 using Chickensoft.GoDotTest;
-using FlowControl.Selector;
 using FluentAssertions;
 using global::Game.CollectorAI.Behaviour;
 using Godot;
 using Node;
 using global::Game.Constants;
-using Node = global::BehaviourTree.Node.Node;
+using Selector;
+using Node = Node.Node;
 
 public class CheckHasTargetTests(Godot.Node testScene) : TestClass(testScene)
 {

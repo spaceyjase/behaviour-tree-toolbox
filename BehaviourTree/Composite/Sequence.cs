@@ -1,4 +1,4 @@
-﻿namespace BehaviourTree.FlowControl.Sequence;
+﻿namespace BehaviourTree.Sequence;
 
 using System.Collections.Generic;
 using Node;

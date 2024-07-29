@@ -2,9 +2,9 @@
 
 using Chickensoft.GoDotTest;
 using Decorators;
-using FlowControl.Sequence;
 using FluentAssertions;
 using Node;
+using Sequence;
 
 public class SequenceTests(Godot.Node testScene) : TestClass(testScene)
 {

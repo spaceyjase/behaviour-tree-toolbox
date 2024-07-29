@@ -2,8 +2,8 @@ namespace Game;
 
 using BehaviourTree.BTree;
 using BehaviourTree.Decorators;
-using BehaviourTree.FlowControl.Selector;
-using BehaviourTree.FlowControl.Sequence;
+using BehaviourTree.Selector;
+using BehaviourTree.Sequence;
 using BehaviourTree.Tests.Game;
 using CollectorAI.Behaviour;
 using Enum;
