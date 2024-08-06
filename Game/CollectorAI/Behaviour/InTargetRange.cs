@@ -1,8 +1,8 @@
 ﻿namespace Game.CollectorAI.Behaviour;
 
 using BehaviourTree.Node;
-using Godot;
 using Constants;
+using Godot;
 using Node = BehaviourTree.Node.Node;
 
 public class InTargetRange(Node2D collector) : Node

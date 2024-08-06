@@ -1,4 +1,4 @@
-﻿namespace BehaviourTree.Sequence;
+﻿namespace BehaviourTree.Composite;
 
 using System.Collections.Generic;
 using Node;
@@ -10,13 +10,12 @@ public class Sequence : Node
 {
     public Sequence() { }
 
-    public Sequence(IEnumerable<Node> children)
+    public Sequence(IEnumerable<INode> children)
         : base(children) { }
 
     public override NodeState Evaluate(double delta)
     {
-        bool anyChildRunning = false;
-        foreach (Node child in this.Children)
+        foreach (INode child in this.Children)
         {
             switch (child.Evaluate(delta))
             {
@@ -26,14 +25,16 @@ public class Sequence : Node
                 case NodeState.Success:
                     continue;
                 case NodeState.Running:
-                    anyChildRunning = true;
-                    break;
+                    this.State = NodeState.Running;
+                    return this.State;
+                case NodeState.Default:
                 default:
                     this.State = NodeState.Success;
                     return this.State;
             }
         }
-        this.State = anyChildRunning ? NodeState.Running : NodeState.Success;
+        this.State = NodeState.Success;
+
         return this.State;
     }
 }

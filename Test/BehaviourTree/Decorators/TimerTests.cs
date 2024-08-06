@@ -1,10 +1,10 @@
 ﻿namespace BehaviourTree.Tests.BehaviourTree;
 
 using Chickensoft.GoDotTest;
-using FluentAssertions;
+using Composite;
 using Decorators;
+using FluentAssertions;
 using Node;
-using Selector;
 
 public class TimerTests(Godot.Node testScene) : TestClass(testScene)
 {
@@ -19,7 +19,7 @@ public class TimerTests(Godot.Node testScene) : TestClass(testScene)
     public void CanCreateTimerWithChildren()
     {
         Selector child = new();
-        Timer timer = new(100f, new Node[] { child });
+        Timer timer = new(100f, child);
 
         timer.HasChildren.Should().BeTrue();
     }
@@ -30,7 +30,7 @@ public class TimerTests(Godot.Node testScene) : TestClass(testScene)
         bool timerElapsed = false;
 
         Selector child = new();
-        Timer timer = new(100f, new Node[] { child }, () => timerElapsed = true);
+        Timer timer = new(100f, child, () => timerElapsed = true);
         timer.Evaluate(100f);
         timer.Evaluate(100f);
 
@@ -41,7 +41,7 @@ public class TimerTests(Godot.Node testScene) : TestClass(testScene)
     public void Timer_Evaluate()
     {
         Selector child = new();
-        Timer timer = new(100f, new Node[] { child });
+        Timer timer = new(100f, child);
         timer.Evaluate(50f);
 
         timer.State.Should().Be(NodeState.Running);
@@ -50,16 +50,9 @@ public class TimerTests(Godot.Node testScene) : TestClass(testScene)
     [Test]
     public void Timer_Evaluate_Success()
     {
-        Selector child = new();
-        Timer timer = new(100f, new Node[] { child });
+        TestSuccessNode child = new();
+        Timer timer = new(100f, child);
         timer.Evaluate(100f).Should().Be(NodeState.Running);
         timer.Evaluate(100f).Should().Be(NodeState.Success);
-    }
-
-    [Test]
-    public void Timer_Evaluate_Failure()
-    {
-        Timer timer = new(50f);
-        timer.Evaluate(100f).Should().Be(NodeState.Failure);
     }
 }

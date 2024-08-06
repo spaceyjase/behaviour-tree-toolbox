@@ -1,3 +1,9 @@
 ﻿namespace BehaviourTree.Node;
 
-public enum NodeState { Running, Success, Failure }
+public enum NodeState
+{
+    Default = -1,
+    Running,
+    Success,
+    Failure
+}

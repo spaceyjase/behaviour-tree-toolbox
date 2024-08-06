@@ -2,12 +2,12 @@
 
 using System.Collections.Generic;
 using Chickensoft.GoDotTest;
+using Composite;
 using FluentAssertions;
 using global::Game.CollectorAI.Behaviour;
+using global::Game.Constants;
 using Godot;
 using Node;
-using global::Game.Constants;
-using Selector;
 using Node = Node.Node;
 
 public class CheckHasTargetTests(Godot.Node testScene) : TestClass(testScene)

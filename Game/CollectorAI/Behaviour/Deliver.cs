@@ -2,9 +2,9 @@ namespace Game.CollectorAI.Behaviour;
 
 using System;
 using BehaviourTree.Node;
-using Features.EventBus;
 using Constants;
 using Enum;
+using Features.EventBus;
 
 public partial class Deliver(ResourceType resourceType) : Node
 {

@@ -3,53 +3,54 @@ namespace BehaviourTree.Node;
 using System;
 using System.Collections.Generic;
 
-public abstract class Node
+public abstract class Node : INode
 {
     private readonly NodeData nodeData = new();
 
-    private readonly List<Node> children;
-    private Node root;
+    private readonly List<INode> children;
+    private INode root;
 
     protected Node()
     {
         this.Id = new Guid().ToString();
         this.Parent = null;
-        this.children = new List<Node>();
+        this.children = [];
         this.root = this;
     }
 
-    protected Node(IEnumerable<Node> children)
+    protected internal string Id { get; }
+
+    protected Node(IEnumerable<INode> children)
         : this()
     {
         this.SetChildren(children);
     }
 
-    public Node Root
+    public INode Root
     {
         get => this.root;
-        private set
+        set
         {
             this.root = value;
-            foreach (Node child in this.children)
+            foreach (INode child in this.children)
             {
                 child.Root = this.root;
             }
         }
     }
 
-    public NodeState State { get; protected set; }
-    public string Id { get; }
+    protected internal NodeState State { get; set; } = NodeState.Default;
 
-    public Node? Parent { get; private set; }
+    public INode? Parent { get; set; }
 
-    protected IEnumerable<Node> Children => this.children;
-    public bool HasChildren => this.children.Count > 0;
+    protected IEnumerable<INode> Children => this.children;
+    protected internal bool HasChildren => this.children.Count > 0;
 
     public abstract NodeState Evaluate(double delta);
 
-    public void SetChildren(IEnumerable<Node> children, bool setRoot = false)
+    public void SetChildren(IEnumerable<INode> newChildren, bool setRoot = false)
     {
-        foreach (Node child in children)
+        foreach (INode child in newChildren)
         {
             this.Attach(child);
         }
@@ -60,7 +61,7 @@ public abstract class Node
         }
     }
 
-    public void Attach(Node child)
+    internal void Attach(INode child)
     {
         this.children.Add(child);
 
@@ -68,7 +69,7 @@ public abstract class Node
         child.Parent = this;
     }
 
-    public void Detach(Node child)
+    public void Detach(INode child)
     {
         this.children.Remove(child);
 

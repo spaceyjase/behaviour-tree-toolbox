@@ -1,7 +1,6 @@
 ﻿namespace BehaviourTree.Decorators;
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Node;
 
@@ -10,41 +9,40 @@ using Node;
 /// </summary>
 public class Timer : Node
 {
-    private readonly float delay;
-    private float timer;
+    private readonly double delay;
+    private double timer;
 
     private readonly Action? timerElapsed;
+    private readonly INode? child;
 
-    public Timer(float delay, Action? timerElapsed = null)
+    public Timer(double delay, Action? timerElapsed = null)
     {
         this.delay = delay;
         this.timer = this.delay;
         this.timerElapsed = timerElapsed;
     }
 
-    public Timer(float delay, IEnumerable<Node> children, Action? timerElapsed = null)
-        : base(children)
+    public Timer(double delay, INode children, Action? timerElapsed = null)
+        : base([children])
     {
         this.delay = delay;
         this.timer = this.delay;
         this.timerElapsed = timerElapsed;
+        this.child = this.Children.First();
     }
 
     public override NodeState Evaluate(double delta)
     {
-        if (!this.HasChildren)
-            return NodeState.Failure;
-
         if (this.timer <= 0)
         {
             this.timer = this.delay;
-            this.State = this.Children.First().Evaluate(delta);
+            if (this.child is not null)
+                this.State = this.child.Evaluate(delta);
             this.timerElapsed?.Invoke();
-            this.State = NodeState.Success; // TODO: the child's state?
         }
         else
         {
-            this.timer -= (float)delta;
+            this.timer -= delta;
             this.State = NodeState.Running;
         }
 

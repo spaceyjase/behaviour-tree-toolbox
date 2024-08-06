@@ -1,7 +1,6 @@
 namespace Game;
 
 using Godot;
-
 #if DEBUG
 using System.Reflection;
 using Chickensoft.GoDotTest;

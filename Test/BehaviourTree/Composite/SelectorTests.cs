@@ -1,10 +1,10 @@
 ﻿namespace BehaviourTree.Tests.BehaviourTree;
 
 using Chickensoft.GoDotTest;
-using FluentAssertions;
+using Composite;
 using Decorators;
+using FluentAssertions;
 using Node;
-using Selector;
 
 public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
 {
@@ -35,16 +35,25 @@ public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
     public void CanCreateSelectorWithChildren()
     {
         Selector child = new();
-        Selector selector = new([ child ]);
+        Selector selector = new([child]);
 
         selector.HasChildren.Should().BeTrue();
+    }
+
+    [Test]
+    public void DefaultStateEvaluateIsFailure()
+    {
+        Selector selector = new([new TestDefaultNode()]);
+        selector.Evaluate(1f);
+
+        selector.State.Should().Be(NodeState.Failure);
     }
 
     [Test]
     public void Selector_Evaluate_Failure()
     {
         TestFailureNode child = new();
-        Selector selector = new([ child ]);
+        Selector selector = new([child]);
         selector.Evaluate(1f);
 
         selector.State.Should().Be(NodeState.Failure);
@@ -54,8 +63,8 @@ public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
     public void Selector_Evaluate_Running()
     {
         TestSuccessNode timerChild = new();
-        Timer child = new(1f, [ timerChild ]);
-        Selector selector = new([ child ]);
+        Timer child = new(1f, timerChild);
+        Selector selector = new([child]);
         selector.Evaluate(1f);
 
         selector.State.Should().Be(NodeState.Running);
@@ -65,7 +74,7 @@ public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
     public void Selector_Evaluate_Success()
     {
         TestSuccessNode child = new();
-        Selector selector = new([ child ]);
+        Selector selector = new([child]);
         selector.Evaluate(1f);
 
         selector.State.Should().Be(NodeState.Success);
@@ -76,7 +85,7 @@ public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
     {
         TestSuccessNode child1 = new();
         TestSuccessNode child2 = new();
-        Selector selector = new([ child1, child2 ]);
+        Selector selector = new([child1, child2]);
         selector.Evaluate(1f);
 
         selector.State.Should().Be(NodeState.Success);
@@ -87,7 +96,7 @@ public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
     {
         TestSuccessNode child1 = new();
         TestFailureNode child2 = new();
-        Selector selector = new([ child1, child2 ]);
+        Selector selector = new([child1, child2]);
         selector.Evaluate(1f);
 
         selector.State.Should().Be(NodeState.Success);
@@ -98,7 +107,7 @@ public class SelectorTests(Godot.Node testScene) : TestClass(testScene)
     {
         TestFailureNode child1 = new();
         TestFailureNode child2 = new();
-        Selector selector = new([ child1, child2 ]);
+        Selector selector = new([child1, child2]);
         selector.Evaluate(1f);
 
         selector.State.Should().Be(NodeState.Failure);
