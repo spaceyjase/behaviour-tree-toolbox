@@ -1,8 +1,8 @@
 ﻿namespace BehaviourTree.Tests.Game;
 
-using FluentAssertions;
-using Chickensoft.GoDotTest;
 using global::Game;
+using Chickensoft.GoDotTest;
+using FluentAssertions;
 using global::Game.CollectorAI.Behaviour;
 using Node;
 

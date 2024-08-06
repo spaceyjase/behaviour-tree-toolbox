@@ -1,4 +1,4 @@
-﻿namespace BehaviourTree.FlowControl.Parallel;
+﻿namespace BehaviourTree.Composite;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +15,19 @@ public class Parallel : Node
 {
     public Parallel() { }
 
-    public Parallel(IEnumerable<Node> children)
+    public Parallel(IEnumerable<INode> children)
         : base(children) { }
 
     public override NodeState Evaluate(double delta)
     {
         bool anyChildRunning = false;
         int failedChildren = 0;
-        foreach (Node child in this.Children)
+        foreach (INode child in this.Children)
         {
             switch (child.Evaluate(delta))
             {
                 case NodeState.Failure:
-                    failedChildren++;
+                    ++failedChildren;
                     continue;
                 case NodeState.Success:
                     continue;

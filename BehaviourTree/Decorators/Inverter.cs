@@ -1,6 +1,5 @@
 ﻿namespace BehaviourTree.Decorators;
 
-using System.Collections.Generic;
 using System.Linq;
 using Node;
 
@@ -9,16 +8,19 @@ using Node;
 /// </summary>
 public class Inverter : Node
 {
-    public Inverter() { }
+    private readonly INode child;
 
-    public Inverter(IEnumerable<Node> children)
-        : base(children) { }
+    public Inverter(INode child)
+        : base([child])
+    {
+        this.child = this.Children.First();
+    }
 
     public override NodeState Evaluate(double delta)
     {
         if (!this.HasChildren)
             return NodeState.Failure;
-        switch (this.Children.First().Evaluate(delta))
+        switch (this.child.Evaluate(delta))
         {
             case NodeState.Failure:
                 this.State = NodeState.Success;
@@ -29,6 +31,7 @@ public class Inverter : Node
             case NodeState.Running:
                 this.State = NodeState.Running;
                 return this.State;
+            case NodeState.Default:
             default:
                 this.State = NodeState.Failure;
                 return this.State;

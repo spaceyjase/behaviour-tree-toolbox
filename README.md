@@ -19,7 +19,7 @@ Take a look in the [BehaviourTree](./BehaviourTree) folder as this contains the 
 
 ## example
 
-The [Game](./Game) folder contains a working example from the book that builds on the behaviour tree toolbox. It's a little RTS-like system that has a couple of AI [Collectors](./Game/CollectorAI/Collector.cs) roam around and find resources, collect them and return to base.
+The [Game](./Game) folder contains a working example from the book that builds on the behaviour tree toolbox. It's a little RTS-like system that has a couple of AI [Collectors](./Game/CollectorAI/Collector.cs) roam around, find resources, collect them and return to base.
 
 ![example](./Game/example.gif)
 

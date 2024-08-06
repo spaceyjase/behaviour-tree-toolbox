@@ -1,7 +1,6 @@
-using Godot;
-using System;
 using Features.EventBus;
 using Game.Enum;
+using Godot;
 
 public partial class GameManager : Node2D
 {

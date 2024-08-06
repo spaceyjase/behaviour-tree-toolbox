@@ -1,4 +1,4 @@
-﻿namespace BehaviourTree.FlowControl.Selector;
+﻿namespace BehaviourTree.Composite;
 
 using System.Collections.Generic;
 using Node;
@@ -10,12 +10,12 @@ public class Selector : Node
 {
     public Selector() { }
 
-    public Selector(IEnumerable<Node> children)
+    public Selector(IEnumerable<INode> children)
         : base(children) { }
 
     public override NodeState Evaluate(double delta)
     {
-        foreach (Node node in this.Children)
+        foreach (INode node in this.Children)
         {
             switch (node.Evaluate(delta))
             {
@@ -27,6 +27,7 @@ public class Selector : Node
                 case NodeState.Running:
                     this.State = NodeState.Running;
                     return this.State;
+                case NodeState.Default:
                 default:
                     continue;
             }

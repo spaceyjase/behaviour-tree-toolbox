@@ -2,8 +2,8 @@
 
 using System;
 using BehaviourTree.Node;
-using Godot;
 using Constants;
+using Godot;
 using ResourceMap;
 using Node = BehaviourTree.Node.Node;
 

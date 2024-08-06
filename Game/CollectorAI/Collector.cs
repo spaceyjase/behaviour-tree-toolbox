@@ -1,9 +1,7 @@
 namespace Game;
 
-using BehaviourTree.BTree;
+using BehaviourTree.Composite;
 using BehaviourTree.Decorators;
-using BehaviourTree.FlowControl.Selector;
-using BehaviourTree.FlowControl.Sequence;
 using BehaviourTree.Tests.Game;
 using CollectorAI.Behaviour;
 using Enum;
@@ -11,12 +9,13 @@ using Godot;
 using Node = BehaviourTree.Node.Node;
 using Timer = BehaviourTree.Decorators.Timer;
 
-public partial class Collector : BTree
+public partial class Collector : Node2D
 {
     [Export]
     private ResourceType resourceType;
 
-    [Export] private ResourceMap.ResourceMap? resourceMap;
+    [Export]
+    private ResourceMap.ResourceMap? resourceMap;
 
     [Export]
     private TileMap? tilemap;
@@ -42,55 +41,76 @@ public partial class Collector : BTree
     [Export]
     private int maxStorage = 20;
 
+    private Node? tree;
+
     public ResourceType Resource => this.resourceType;
 
-    protected override Node SetupTree()
+    public override void _Ready()
     {
+        base._Ready();
+
         Node root = new Selector();
         root.SetChildren(
             [
-                new Sequence([
-                    new CheckReachedMaxStorage(this.maxStorage),
-                    new Selector([
-                        new Inverter([ new CheckHasTarget(), ]),
-                        new TargetIsResource(),
-                    ]),
-                    new FindClosestTarget(this, this.tilemap, false),
-                ]),
                 new Sequence(
-                [
-                    new CheckHasTarget(),
-                    new Selector([
-                        new Sequence(
+                    [
+                        new CheckReachedMaxStorage(this.maxStorage),
+                        new Selector([new Inverter(new CheckHasTarget()), new TargetIsResource(),]),
+                        new FindClosestTarget(this, this.tilemap, false),
+                    ]
+                ),
+                new Sequence(
+                    [
+                        new CheckHasTarget(),
+                        new Selector(
                             [
-                                new InTargetRange(this),
-                                new Selector(
-                                [
-                                    new Sequence(
+                                new Sequence(
                                     [
-                                        new TargetIsResource(),
-                                        new Timer(this.collectRate, [
-                                            new Collect(this.maxStorage, this.tilemap,
-                                                this.resourceMap ??
-                                                throw new System.ArgumentNullException(nameof(this.resourceMap))),
-                                        ], this.UpdateResourceBar),
-                                    ]),
-                                    new Sequence(
-                                    [
-                                        new CheckHasResource(),
-                                        new Timer(this.deliverRate, [
-                                            new Deliver(this.resourceType)
-                                            ], this.UpdateResourceBar),
-                                    ]),
-                                    new Sequence([
-                                        new CheckIsVisible(this),
-                                        new EnterBuilding(this)
-                                ]),
-                            ]),
-                        ]),
-                        new Walk(this, this.agent, this.speed, this.OnReachTarget),
-                    ])
-                ]),
+                                        new InTargetRange(this),
+                                        new Selector(
+                                            [
+                                                new Sequence(
+                                                    [
+                                                        new TargetIsResource(),
+                                                        new Timer(
+                                                            this.collectRate,
+                                                            new Collect(
+                                                                this.maxStorage,
+                                                                this.tilemap,
+                                                                this.resourceMap
+                                                                    ?? throw new System.ArgumentNullException(
+                                                                        nameof(this.resourceMap)
+                                                                    )
+                                                            ),
+                                                            this.UpdateResourceBar
+                                                        ),
+                                                    ]
+                                                ),
+                                                new Sequence(
+                                                    [
+                                                        new CheckHasResource(),
+                                                        new Timer(
+                                                            this.deliverRate,
+                                                            new Deliver(this.resourceType),
+                                                            this.UpdateResourceBar
+                                                        ),
+                                                    ]
+                                                ),
+                                                new Sequence(
+                                                    [
+                                                        new CheckIsVisible(this),
+                                                        new EnterBuilding(this)
+                                                    ]
+                                                ),
+                                            ]
+                                        ),
+                                    ]
+                                ),
+                                new Walk(this, this.agent, this.speed, this.OnReachTarget),
+                            ]
+                        )
+                    ]
+                ),
                 new FindClosestTarget(this, this.tilemap, true),
                 new FindClosestTarget(this, this.tilemap, false)
             ],
@@ -99,17 +119,20 @@ public partial class Collector : BTree
 
         root.SetData(Constants.Constants.CurrentResourceAmount, 0);
 
-        if (this.resourceFillBar is null) return root;
+        if (this.resourceFillBar is null)
+            return;
 
         this.resourceFillBar.MaxValue = this.maxStorage;
         this.resourceFillBar.Value = 0;
 
-        return root;
+        this.tree = root;
     }
 
     private void UpdateResourceBar()
     {
-        int currentAmount = (int)(this.Root?.GetData(Constants.Constants.CurrentResourceAmount) ?? 0);
+        int currentAmount = (int)(
+            this.tree!.GetData(Constants.Constants.CurrentResourceAmount) ?? 0
+        );
         if (this.resourceFillBar is not null)
         {
             this.resourceFillBar.Value = currentAmount;
@@ -122,5 +145,12 @@ public partial class Collector : BTree
             return;
         if (this.sprite is not null)
             this.sprite.FlipH = velocity.X < 0;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+
+        this.tree?.Evaluate(delta);
     }
 }

@@ -1,9 +1,9 @@
 namespace Game.CollectorAI.Behaviour;
 
 using BehaviourTree.Node;
-using Godot;
 using Constants;
 using Enum;
+using Godot;
 
 public class FindClosestTarget : BehaviourTree.Node.Node
 {

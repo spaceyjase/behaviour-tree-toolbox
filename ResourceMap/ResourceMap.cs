@@ -1,7 +1,7 @@
 namespace Game.ResourceMap;
 
-using Godot;
 using System.Collections.Generic;
+using Godot;
 
 public partial class ResourceMap : Node
 {

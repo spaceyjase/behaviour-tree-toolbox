@@ -10,15 +10,10 @@ public class NodeTests(Godot.Node testScene) : TestClass(testScene)
 {
     private class TestNode : Node
     {
-        public TestNode()
-        {
+        public TestNode() { }
 
-        }
-
-        public TestNode(IEnumerable<Node> children) : base(children)
-        {
-
-        }
+        public TestNode(IEnumerable<Node> children)
+            : base(children) { }
 
         public override NodeState Evaluate(double delta)
         {
@@ -164,7 +159,7 @@ public class NodeTests(Godot.Node testScene) : TestClass(testScene)
     public void NodeState_IsDefaultState()
     {
         TestNode node = new();
-        node.State.Should().Be(NodeState.Running);
+        node.State.Should().Be(NodeState.Default);
     }
 
     [Test]

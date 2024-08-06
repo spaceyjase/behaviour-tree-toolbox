@@ -2,8 +2,8 @@
 
 using System;
 using BehaviourTree.Node;
-using Godot;
 using Constants;
+using Godot;
 using Node = BehaviourTree.Node.Node;
 
 public class Walk : Node
