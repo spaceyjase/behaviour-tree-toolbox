@@ -11,7 +11,7 @@ The book takes a look at various AI models and includes example projects that de
 Take a look in the [BehaviourTree](./BehaviourTree) folder as this contains the basic [Node](./BehaviourTree/Node/) definition, state and data for use with specialised (derived) classes. The folder also has `Composite` and `Decorator` `Node`s.
 
 * `Selector` - this acts like an 'OR', succeeding if any child node has a `Success` state.
-* `Sequence` - evaluating child nodes only succeeding when child nodes all child nodes have a `Success` state; an 'AND'.
+* `Sequence` - evaluating child nodes and only succeeding when all child nodes have a `Success` state; an 'AND'.
 * `Inverter` - flips the results of a child node; e.g. 'NOT'.
 * `Timer` - run a child node periodically.
 
