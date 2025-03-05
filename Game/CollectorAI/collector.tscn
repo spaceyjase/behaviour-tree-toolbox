@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ck3321dyjuo6l"]
 
-[ext_resource type="Script" path="res://Game/CollectorAI/Collector.cs" id="1_4fhwf"]
+[ext_resource type="Script" uid="uid://b18woc5bmr233" path="res://Game/CollectorAI/Collector.cs" id="1_4fhwf"]
 [ext_resource type="Texture2D" uid="uid://ilhdcol32fjp" path="res://Assets/Unit/scifiUnit_30.png" id="1_k7qs1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afcov"]

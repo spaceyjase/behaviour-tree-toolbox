@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://datnwsrmu5ko0"]
 
-[ext_resource type="Script" path="res://Game/GameManager.cs" id="1_0ufrq"]
+[ext_resource type="Script" uid="uid://bjjpnxfwv2r3o" path="res://Game/GameManager.cs" id="1_0ufrq"]
 [ext_resource type="TileSet" uid="uid://dwubp26n430d" path="res://Game/world_tile_set.tres" id="1_cj34w"]
 [ext_resource type="PackedScene" uid="uid://ck3321dyjuo6l" path="res://Game/CollectorAI/collector.tscn" id="2_23ivj"]
 [ext_resource type="Texture2D" uid="uid://cn7c6f5pqrhyg" path="res://Assets/Unit/scifiUnit_20.png" id="3_jhppi"]

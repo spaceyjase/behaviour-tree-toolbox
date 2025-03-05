@@ -41,6 +41,9 @@ public partial class Collector : Node2D
     [Export]
     private int maxStorage = 20;
 
+    [Export]
+    private bool isActive = true;
+
     private Node? tree;
 
     public ResourceType Resource => this.resourceType;
@@ -48,6 +51,9 @@ public partial class Collector : Node2D
     public override void _Ready()
     {
         base._Ready();
+
+        if (!this.isActive)
+            this.QueueFree();
 
         Node root = new Selector();
         root.SetChildren(
