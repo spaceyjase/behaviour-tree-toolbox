@@ -12,13 +12,13 @@ public abstract class Node : INode
 
     protected Node()
     {
-        this.Id = new Guid().ToString();
+        this.Id = Guid.NewGuid();
         this.Parent = null;
         this.children = [];
         this.root = this;
     }
 
-    protected internal string Id { get; }
+    protected internal Guid Id { get; }
 
     protected Node(IEnumerable<INode> children)
         : this()
@@ -39,7 +39,7 @@ public abstract class Node : INode
         }
     }
 
-    protected internal NodeState State { get; set; } = NodeState.Default;
+    protected internal NodeState State { get; protected set; } = NodeState.Default;
 
     public INode? Parent { get; set; }
 
