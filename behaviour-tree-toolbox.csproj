@@ -1,9 +1,10 @@
-<Project Sdk="Godot.NET.Sdk/4.4.0">
+<Project Sdk="Godot.NET.Sdk/4.4.1">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
     <DefaultItemExcludes Condition="'$(Configuration)' == 'ExportRelease'">$(DefaultItemExcludes);test/**/*</DefaultItemExcludes>
+    <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="BehaviourTree.Tests\**" />
